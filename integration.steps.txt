@@ -1,0 +1,10 @@
+1- npm init -y // install package.json
+2- change package.json to added serve:"node server.js"
+3-now app is running bu npm run serve
+4- npm install express //https://www.npmjs.com/package/express
+** https://expressjs.com/en/5x/api.html
+5- node extesnsions https://medium.com/@yuvrajkakkar1/best-2024-top-20-visual-studio-code-extensions-for-node-js-developers-5e758f3a505a
+6- integration with github
+  * git init
+  * create .gitignore and pase node_modules
+  *-git commit -m "create new node api project"
