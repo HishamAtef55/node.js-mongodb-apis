@@ -1,0 +1,3 @@
+1- naviagate to mongodb path 
+2- write db to display all database
+3- for switch use<database>

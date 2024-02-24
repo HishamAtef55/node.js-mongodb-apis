@@ -5,6 +5,11 @@
 ** https://expressjs.com/en/5x/api.html
 5- node extesnsions https://medium.com/@yuvrajkakkar1/best-2024-top-20-visual-studio-code-extensions-for-node-js-developers-5e758f3a505a
 6- integration with github
+  *- define repo
   * git init
   * create .gitignore and pase node_modules
   *-git commit -m "create new node api project"
+7-install nodemon https://www.npmjs.com/package/nodemon 
+8- added dev variable to package.json 
+9- install mongoso https://www.npmjs.com/package/mongoose
+10- for advanced work https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/skeleton_website
