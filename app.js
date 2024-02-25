@@ -7,6 +7,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const mongoose = require("mongoose");
 const productRoutes = require("./routes/products");
+const personsRoutes = require("./routes/persons");
 
 app.listen(port, () => {
   console.log(`Server is listening at ${base_url}`);
@@ -18,3 +19,4 @@ mongoose
   .catch((error) => console.error(`DB disconnected! ${error}`));
 // include routes
 app.use("/products", productRoutes);
+app.use("/persons", personsRoutes);

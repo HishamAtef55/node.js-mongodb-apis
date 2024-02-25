@@ -1,3 +1,45 @@
 1- naviagate to mongodb path 
 2- write db to display all database
-3- for switch use<database>
+3- for switch use <database>
+ * show collection // display all tables
+ * 
+4-https://studio3t.com/knowledge-base/articles/mongodb-aggregation-framework/
+5- db.persons.aggregate() lika as db.persons.show({})
+6-aggregation steps operation syntax
+ * {$<stageOperator>:{key:value}}
+ ex: * {$match:{ag:{$gt:20}}}
+    * {$group:{__id:"$age"}}
+    * {$sort:{count:-1}}
+
+*** $match => match document fields with some criteria
+    ** {$match:{<query>}}
+    *ex* {$match:{city:"new york"}}
+    *ex* {$match:{age:{$gt:25}}}
+    *ex* {$match:{$and:[
+        {gender:"female"},
+        {age:{$gt:25}}
+    ]}}
+ - $group => grouping the fields to perform aggregation
+   ** {$group:{_id:<aggregation expression>,<field1>:
+       {<accumulator1>:<aggregation expression>}}}
+    tip: _id is a Mandatory field must be included for unique value   
+ - $project => show some specific fields
+ - $sort => performing sort documents objects
+   * "$sort key ordering must be 1 (for ascending) or -1 (for descending)
+ - $count => count documents objects
+   ** {$count:"<aggregate stage output fiels><Count>}
+   *   {
+        $group: {
+          _id: { eyeColor: "$eyeColor", favoriteFruit: "$favoriteFruit" },
+        },
+      },
+      {
+        $count: "groupCount",
+      },
+ - $limit => limit documents objects to display
+ - $skip =>
+ - $out =>    
+7-aggregation expression => refers to the name of the field in input document
+  * "{$<fieldname>}" 
+  tip: cant use it as objects key
+8- <show> is equal to <aggregate> with one stage  
