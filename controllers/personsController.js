@@ -41,6 +41,52 @@ async function index(req, res) {
         $group: { _id: { age: "$age", eyeColor: "$eyeColor" } },
       },
       //   { $sort: { _id: 1 } }, // the sorting is done on _id because the pervious stage end with _id carry the output document
+          const response = await PackageModel.aggregate([
+      {
+        $match: {
+          "plan.packages.name": packageType,
+        }
+      },
+      {
+        $project: {
+          company_name: 1,
+          plan: {
+            packages: {
+              $arrayElemAt: [
+                {
+                  $filter: {
+                    input: "$plan.packages",
+                    as: "pkg",
+                    cond: { $eq: ["$$pkg.name", packageType] },
+                  }
+                },
+                0
+              ]
+            }
+          }
+        }
+      },
+      {
+        $unwind: "$plan.packages.price_list",
+
+      },
+      {
+        $match: {
+          $expr: {
+            $and: [
+              { $in: [ manufacturingYear, "$plan.packages.price_list.manufacturing_year" ] },
+              { $lt: [+(packagePrice), "$plan.packages.price_list.avg.max"] },
+              { $gte: [+(packagePrice), "$plan.packages.price_list.avg.min"] }
+            ]
+          }
+        }
+      },
+      {
+        $sort:{
+          "plan.packages.price_list.avg.min": sort_value
+        }
+      }
+    ]);
     ]);
     res.status(200).json({
       message: msg,
