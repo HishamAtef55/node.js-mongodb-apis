@@ -27,6 +27,7 @@
  - $sort => performing sort documents objects
    * "$sort key ordering must be 1 (for ascending) or -1 (for descending)
  - $count => count documents objects
+   ** {$count:"<title>"}
    ** {$count:"<aggregate stage output fiels><Count>}
    *   {
         $group: {
