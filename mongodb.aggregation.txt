@@ -43,3 +43,63 @@
   * "{$<fieldname>}" 
   tip: cant use it as objects key
 8- <show> is equal to <aggregate> with one stage  
+9-    try {
+      const response = await PackageModel.aggregate([
+        // stage 1
+        {
+          $match: {
+            "plan.packages.name": packageType,
+          },
+        },
+        // stage 2
+        {
+          $project: {
+            company_name: 1,
+            plan: {
+              packages: {
+                $arrayElemAt: [
+                  {
+                    $filter: {
+                      input: "$plan.packages",
+                      as: "pkg",
+                      cond: { $eq: ["$$pkg.name", packageType] },
+                    },
+                  },
+                  0,
+                ],
+              },
+            },
+          },
+        },
+        // stage 3
+        {
+          $unwind: "$plan.packages.price_list",
+        },
+        // stage 4
+        {
+          $match: {
+            $expr: {
+              $and: [
+                {
+                  $in: [
+                    manufacturingYear,
+                    "$plan.packages.price_list.manufacturing_year",
+                  ],
+                },
+                { $lt: [+packagePrice, "$plan.packages.price_list.avg.max"] },
+                { $gte: [+packagePrice, "$plan.packages.price_list.avg.min"] },
+              ],
+            },
+          },
+        },
+        // stage 5
+        {
+          $sort: {
+            "plan.packages.price_list.avg.min": sort_value,
+          },
+        },
+      ]);
+      return res.send(response);
+    } catch (error) {
+      return res.send(error.message);
+    }
