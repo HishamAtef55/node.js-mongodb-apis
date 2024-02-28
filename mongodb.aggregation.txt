@@ -43,3 +43,19 @@
   * "{$<fieldname>}" 
   tip: cant use it as objects key
 8- <show> is equal to <aggregate> with one stage  
+
+//////// tasks \\\\\\\\\\\\\\\\\\\\\\\\\
+1- return only those who active male
+** age < 20 
+** eyeColor blue 
+** return only name favoriteFruit company.location.country age
+** unwind tags
+** added field totalCount
+** limit 50
+1- return only those who unactive female
+** age > 30 
+** eyeColor green 
+** return only name favoriteFruit company.location.country age
+** unwind tags
+** added field totalCount
+** limit 30
