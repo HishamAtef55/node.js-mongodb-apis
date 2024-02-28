@@ -1,5 +1,8 @@
 const Persons = require("../models/PersonModel");
 let msg = "persons retrived successfully";
+let createMsg = "persons created successfully";
+let updatedMsg = "persons upadted successfully";
+
 async function index(req, res) {
   try {
     const gender = req.body.gender;
@@ -89,11 +92,77 @@ async function index(req, res) {
       },
     ]);
     res.status(200).json({
-      message: msg,
+      message: createMsg,
       data: persons,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 }
-module.exports = { index };
+async function create(req, res) {
+  const {
+    index,
+    name,
+    isActive,
+    registered,
+    age,
+    gender,
+    eyeColor,
+    favoriteFruit,
+    company,
+    tags,
+  } = req.body;
+  try {
+    const personData = new Persons({
+      index,
+      name,
+      isActive,
+      registered,
+      age,
+      gender,
+      eyeColor,
+      favoriteFruit,
+      company,
+      tags,
+    });
+    const newPerson = await personData.save();
+    res.status(200).json({
+      message: createMsg,
+      data: newPerson,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+async function update(req, res) {
+  // const newCompany = req.body;
+  // const newLocation = req.body;
+  try {
+    const { id } = req.params;
+    // added an array element
+    // await Persons.updateOne({ _id: id }, { $push: { company: newCompany } });
+    // update an array element
+    // await Persons.updateOne(
+    //   { _id: id, "company.title": "cairo" },
+    //   { $set: { "company.$.location": newLocation } }
+    // );
+    // delete an array element
+    // await Persons.updateOne(
+    //   { _id: id },
+    //   { $pull: { company: { title: "cairo" } } }
+    // );
+    // Add a New Field to all Objects in the Array
+
+    await Persons.updateOne({ _id: id }, { $set: { "company.$[].likes": 0 } });
+
+    const updatedPerson = await Persons.findById(id);
+    res.status(200).json({
+      message: updatedMsg,
+      data: updatedPerson,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+}
+module.exports = { index, create, update };

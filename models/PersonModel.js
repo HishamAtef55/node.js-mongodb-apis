@@ -3,35 +3,35 @@ const personSchema = mongoose.Schema(
   {
     index: {
       type: String,
-      required: false,
+      required: true,
     },
     name: {
       type: String,
-      required: false,
+      required: true,
     },
     isActive: {
       type: Boolean,
-      required: false,
+      required: true,
     },
     registered: {
       type: String,
-      required: false,
+      required: true,
     },
     age: {
       type: Number,
-      required: false,
+      required: true,
     },
     gender: {
       type: String,
-      required: false,
+      required: true,
     },
     eyeColor: {
       type: String,
-      required: false,
+      required: true,
     },
     favoriteFruit: {
       type: String,
-      required: false,
+      required: true,
     },
     company: {
       type: Object,
@@ -39,7 +39,7 @@ const personSchema = mongoose.Schema(
     },
     tags: {
       type: Array,
-      required: false,
+      required: true,
     },
   },
   {

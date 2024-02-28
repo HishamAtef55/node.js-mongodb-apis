@@ -11,7 +11,5 @@ COPY package.json /usr/src/app
 RUN npm install
 #copying the source code of Application into the container dir
 COPY . /usr/src/app
-#container exposed network port number
-EXPOSE 3000
 #command to run within the container
 CMD ["npm", "run", "dev"]
